@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#686868"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/music_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/music_icon"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/song_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/music_image"
+        app:layout_constraintTop_toTopOf="@+id/music_image"
+        android:text="Song name"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/singer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Singer name"
+        app:layout_constraintBottom_toBottomOf="@+id/music_image"
+        app:layout_constraintStart_toEndOf="@+id/music_image"
+        app:layout_constraintTop_toBottomOf="@+id/song_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/play_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/play_button"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/music_image"
+        app:layout_constraintEnd_toStartOf="@+id/next_song"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/pause_song"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/pause_button"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/music_image"
+        app:layout_constraintEnd_toStartOf="@+id/next_song"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/next_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/next_song"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/music_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

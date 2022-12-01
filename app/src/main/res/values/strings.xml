@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MusicApp</string>
+    <string name="media_url_mp3">https://storage.googleapis.com/exoplayer-test-media-0/play.mp3</string>
+    <string name="second_media_url">https://cdns-preview-b.dzcdn.net/stream/c-be6c763188230b2bdd6c97ec5badb09e-28.mp3</string>
+    <string name="third_media_url">https://cdns-preview-d.dzcdn.net/stream/c-da937c3b17ae7e8965fbca075f1dc8af-6.mp3</string>
+
+</resources>

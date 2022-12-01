@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/music_gradient">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/song_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/song_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/song_image"
+        app:layout_constraintTop_toBottomOf="@+id/song_image"
+        android:text="Song name"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/singer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Singer name"
+        app:layout_constraintStart_toStartOf="@+id/song_name"
+        app:layout_constraintTop_toBottomOf="@+id/song_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/add_to_playlist"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/add"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/song_image"
+        app:layout_constraintTop_toBottomOf="@+id/song_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/added_to_playlist"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/added_to_playlist"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/song_image"
+        app:layout_constraintTop_toBottomOf="@+id/song_image" />
+
+    <SeekBar
+        android:id="@id/exo_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:thumbTint="#656363"
+        android:progressTint="@color/black"
+        android:progressBackgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backward_time" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/initial_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toStartOf="@+id/exo_progress"
+        app:layout_constraintTop_toBottomOf="@+id/exo_progress"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/total_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/exo_progress"
+        app:layout_constraintTop_toBottomOf="@+id/exo_progress"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/backward_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/backward"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toStartOf="@id/previous_song"
+        app:layout_constraintStart_toStartOf="@+id/singer_name"
+        app:layout_constraintTop_toBottomOf="@+id/singer_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/previous_song"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:src="@drawable/previous"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toStartOf="@id/play_song"
+        app:layout_constraintStart_toEndOf="@+id/backward_time"
+        app:layout_constraintTop_toBottomOf="@+id/singer_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/play_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/play_button"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toStartOf="@id/next_song"
+        app:layout_constraintStart_toEndOf="@+id/previous_song"
+        app:layout_constraintTop_toBottomOf="@+id/singer_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/pause_song"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:src="@drawable/pause_button"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="30dp"
+        app:layout_goneMarginStart="30dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/previous_song"
+        app:layout_constraintTop_toBottomOf="@+id/singer_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/next_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/next_song"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintStart_toEndOf="@+id/play_song"
+        app:layout_constraintTop_toBottomOf="@+id/singer_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/forward_time"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/forward"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintStart_toEndOf="@+id/next_song"
+        app:layout_constraintTop_toBottomOf="@+id/singer_name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
