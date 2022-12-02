@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Playlist(
-    @PrimaryKey(autoGenerate = true)
-    var playlistId : Int,
+    @PrimaryKey(autoGenerate = false)
     var playlistName : String
 )

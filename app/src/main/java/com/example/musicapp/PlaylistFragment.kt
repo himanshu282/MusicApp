@@ -1,6 +1,8 @@
 package com.example.musicapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +25,12 @@ class PlaylistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val playlistAdapter = PlaylistAdapter()
+        val playlistAdapter = PlaylistAdapter {
+            val intent = Intent(context,PlaylistSongsActivity::class.java)
+            intent.putExtra("playListName",it)
+            Log.d("TAG", "playlistnamefromadapter: $it")
+            startActivity(intent)
+        }
         val playlist : Playlist? = Gson().fromJson(AppPreference.listOfPlaylist,Playlist::class.java)
         playlistAdapter.submitList(playlist?.name?.toList() ?: arrayListOf())
         binding.recyclerView.layoutManager = LinearLayoutManager(context)

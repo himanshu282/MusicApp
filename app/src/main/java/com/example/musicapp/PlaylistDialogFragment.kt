@@ -4,22 +4,26 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.example.musicapp.adapters.PlaylistAdapter
 import com.example.musicapp.databinding.DialogAddToPlaylistBinding
+import com.example.musicapp.model.Song
 import com.example.musicapp.model.Songs
+import com.example.musicapp.viewmodels.PlaylistSharedViewModel
 import com.google.gson.Gson
 
 class PlaylistDialogFragment : DialogFragment() {
 
     private lateinit var binding: ViewBinding
+    private val model : PlaylistSharedViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,14 +36,20 @@ class PlaylistDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val playlistAdapter = PlaylistAdapter()
+
+        val songs = arguments?.getParcelable<Songs>("song")
+        model.song.value = songs
+
+
+        val playlistAdapter = PlaylistAdapter { playlistName ->
+            model.insertSong(Song(playlistName = playlistName, songUrl = songs?.songUrl ?: "", singerName = songs?.singerName ?: "", songName = songs?.songName ?: ""))
+        }
         (binding as DialogAddToPlaylistBinding).createPlaylist.setOnClickListener {
             NewPlayListDialogFragment {
                 playlistAdapter.submitList(it?.name?.toList() ?: arrayListOf())
             }.show(this.parentFragmentManager,this.activity?.localClassName)
         }
 
-        val songData = arguments?.getParcelable<Songs>("song")
 
         val playlist : Playlist? = Gson().fromJson(AppPreference.listOfPlaylist,Playlist::class.java)
         playlistAdapter.submitList(playlist?.name?.toList() ?: arrayListOf())

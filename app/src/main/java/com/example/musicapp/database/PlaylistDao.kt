@@ -16,5 +16,9 @@ interface PlaylistDao {
 
     @Transaction
     @Query("SELECT * FROM song where playlistName = :playlistName")
-    suspend fun getPlaylistWithSongs(playlistName : String) : List<PlaylistWithSongs>
+    suspend fun getPlaylistWithSongs(playlistName : String) : PlaylistWithSongs?
+
+    @Query("SELECT * FROM playlist")
+    suspend fun getPlaylist() : List<Playlist>?
+
 }
