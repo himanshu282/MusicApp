@@ -28,6 +28,7 @@ class PlaylistSongsActivity : AppCompatActivity() {
 
         model.data.observe(this) {
             val playlistSongAdapter = PlaylistSongAdapter { position ->
+                stopService(Intent(this,AudioPlayerService::class.java))
                 val songsWithPosition = SongsWithPosition(listOfSongs, position)
                 val intent = Intent(this, SearchActivity::class.java)
                 intent.putExtra("songs", songsWithPosition)

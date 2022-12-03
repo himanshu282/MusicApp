@@ -8,20 +8,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicapp.R
+import com.example.musicapp.model.Playlist
 
-class PlaylistAdapter(var click : (String) -> Unit) : ListAdapter<String,PlaylistAdapter.MyViewHolder>(object : DiffUtil.ItemCallback<String>(){
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
+class PlaylistAdapter(var click : (String) -> Unit) : ListAdapter<Playlist,PlaylistAdapter.MyViewHolder>(object : DiffUtil.ItemCallback<Playlist>(){
+    override fun areItemsTheSame(oldItem: Playlist, newItem: Playlist): Boolean = oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean = false
+    override fun areContentsTheSame(oldItem: Playlist, newItem: Playlist): Boolean = false
 
 }) {
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val playlistTitle: TextView = view.findViewById(R.id.playlist_title)
-        fun bind(text : String){
+        fun bind(text : Playlist){
             playlistTitle.setOnClickListener {
-                click.invoke(text)
+                click.invoke(text.playlistName)
             }
-            playlistTitle.text = text
+            playlistTitle.text = text.playlistName
         }
 
     }

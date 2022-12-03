@@ -16,9 +16,7 @@ class PlaylistSharedViewModel(application: Application) : AndroidViewModel(appli
     var playlist = MutableLiveData<List<Playlist>?>()
     var song  = MutableLiveData<Songs>()
 
-    init {
-        getPlaylist()
-    }
+
 
     fun insertSong(song: Song){
         viewModelScope.launch {
@@ -32,7 +30,7 @@ class PlaylistSharedViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
-    private fun getPlaylist(){
+     fun getPlaylist(){
         viewModelScope.launch {
            playlist.postValue(repository.getPlaylist())
         }

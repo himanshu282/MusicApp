@@ -86,7 +86,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MusicPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        song = null
         song = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra("songs", SongsWithPosition::class.java)
         } else {

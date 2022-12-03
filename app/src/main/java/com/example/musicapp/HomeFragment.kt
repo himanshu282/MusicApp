@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
 
         mainViewModel.responseData.observe(viewLifecycleOwner) {
             val homeAdapter = HomeAdapter { position ->
+                activity?.stopService(Intent(view.context,AudioPlayerService::class.java))
                 val songsWithPosition = SongsWithPosition(songList, position)
                 val intent = Intent(context, SearchActivity::class.java)
                 intent.putExtra("songs", songsWithPosition)

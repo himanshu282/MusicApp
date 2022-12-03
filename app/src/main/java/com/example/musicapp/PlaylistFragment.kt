@@ -7,13 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicapp.adapters.PlaylistAdapter
 import com.example.musicapp.databinding.FragmentPlaylistBinding
-import com.google.gson.Gson
+import com.example.musicapp.viewmodels.PlaylistFragmentViewModel
 
 class PlaylistFragment : Fragment() {
     private lateinit var binding : FragmentPlaylistBinding
+    private val model : PlaylistFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,17 +26,21 @@ class PlaylistFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        model.getPlaylist()
         val playlistAdapter = PlaylistAdapter {
             val intent = Intent(context,PlaylistSongsActivity::class.java)
             intent.putExtra("playListName",it)
             Log.d("TAG", "playlistnamefromadapter: $it")
             startActivity(intent)
         }
-        val playlist : Playlist? = Gson().fromJson(AppPreference.listOfPlaylist,Playlist::class.java)
-        playlistAdapter.submitList(playlist?.name?.toList() ?: arrayListOf())
+        model.playlist.observe(viewLifecycleOwner){
+            playlistAdapter.submitList(it)
+        }
+
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter=playlistAdapter
+        super.onViewCreated(view, savedInstanceState)
     }
+
 
 }

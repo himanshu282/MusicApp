@@ -17,7 +17,6 @@ import com.example.musicapp.databinding.DialogAddToPlaylistBinding
 import com.example.musicapp.model.Song
 import com.example.musicapp.model.Songs
 import com.example.musicapp.viewmodels.PlaylistSharedViewModel
-import com.google.gson.Gson
 
 class PlaylistDialogFragment : DialogFragment() {
 
@@ -36,7 +35,7 @@ class PlaylistDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        model.getPlaylist()
         val songs = arguments?.getParcelable<Songs>("song")
         model.song.value = songs
 
@@ -46,13 +45,17 @@ class PlaylistDialogFragment : DialogFragment() {
         }
         (binding as DialogAddToPlaylistBinding).createPlaylist.setOnClickListener {
             NewPlayListDialogFragment {
-                playlistAdapter.submitList(it?.name?.toList() ?: arrayListOf())
+                model.getPlaylist()
+                model.playlist.observe(viewLifecycleOwner){
+                    playlistAdapter.submitList(it)
+                }
             }.show(this.parentFragmentManager,this.activity?.localClassName)
         }
 
+        model.playlist.observe(viewLifecycleOwner){
+            playlistAdapter.submitList(it)
+        }
 
-        val playlist : Playlist? = Gson().fromJson(AppPreference.listOfPlaylist,Playlist::class.java)
-        playlistAdapter.submitList(playlist?.name?.toList() ?: arrayListOf())
         (binding as DialogAddToPlaylistBinding).playlistRecyclerView.layoutManager = LinearLayoutManager(context)
         (binding as DialogAddToPlaylistBinding).playlistRecyclerView.adapter=playlistAdapter
 

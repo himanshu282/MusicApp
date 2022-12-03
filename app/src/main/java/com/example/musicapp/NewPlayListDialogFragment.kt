@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -14,9 +15,8 @@ import androidx.viewbinding.ViewBinding
 import com.example.musicapp.databinding.AddToPlaylistBinding
 import com.example.musicapp.model.Song
 import com.example.musicapp.viewmodels.PlaylistSharedViewModel
-import com.google.gson.Gson
 
-class NewPlayListDialogFragment(var click : (Playlist?) -> Unit) : DialogFragment() {
+class NewPlayListDialogFragment(private var click : () -> Unit) : DialogFragment() {
 
     private val model : PlaylistSharedViewModel by activityViewModels()
     private lateinit var binding: ViewBinding
@@ -35,26 +35,19 @@ class NewPlayListDialogFragment(var click : (Playlist?) -> Unit) : DialogFragmen
 
         (binding as AddToPlaylistBinding).btnOk.setOnClickListener {
             val text = (binding as AddToPlaylistBinding).playlistName.text.toString()
-//            AppPreference.listOfPlaylist = text
-            var playlist : Playlist? = Gson().fromJson(AppPreference.listOfPlaylist,Playlist::class.java)
+            if (text.isNotEmpty()){
+                model.insertPlaylist(com.example.musicapp.model.Playlist(playlistName = text))
+                model.song.observe(viewLifecycleOwner){
+                    model.insertSong(Song(playlistName = text, songName = it.songName, singerName = it.singerName, songUrl = it.songUrl))
+                }
 
-
-            model.insertPlaylist(com.example.musicapp.model.Playlist(playlistName = text))
-            model.song.observe(viewLifecycleOwner){
-                model.insertSong(Song(playlistName = text, songName = it.songName, singerName = it.singerName, songUrl = it.songUrl))
+                dialog?.dismiss()
+                click.invoke()
             }
+            else
+                Toast.makeText(view.context,"Playlist Name should not be empty.",Toast.LENGTH_SHORT).show()
 
 
-            playlist?.let {
-                it.name.add(text)
-            } ?: kotlin.run {
-                val listOfNames = arrayListOf<String>()
-               listOfNames.add(text)
-                playlist = Playlist(listOfNames)
-            }
-            AppPreference.listOfPlaylist = Gson().toJson(playlist)
-            dialog?.dismiss()
-            click.invoke(playlist)
         }
 
         (binding as AddToPlaylistBinding).btnCancel.setOnClickListener {
